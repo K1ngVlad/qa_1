@@ -39,9 +39,15 @@ const getData = (str) => {
     data.push(col);
   });
 
-  data = data.map((col) =>
-    col.map((num) => String(roundedNumber(num, 2)).replace('.', ','))
-  );
+  data = data
+    .sort((a, b) => {
+      if (a[0] > b[0]) return 1;
+      if (a[0] == b[0]) return 0;
+      if (a[0] < b[0]) return -1;
+    })
+    .map((col) =>
+      col.map((num) => String(roundedNumber(num, 2)).replace('.', ','))
+    );
 
   return {
     data,
