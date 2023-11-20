@@ -21,33 +21,33 @@ const getData = (str) => {
   let accumFrequency = 0;
   let accumRelativeFrequency = 0;
 
-  set.forEach((value) => {
-    const col = [];
-
-    const frequency = getFrequency(arr, value);
-    const relativeFrequency = getRelativeFrequency(arr, frequency);
-
-    accumFrequency += frequency;
-    accumRelativeFrequency += relativeFrequency;
-
-    col.push(value);
-    col.push(frequency);
-    col.push(relativeFrequency);
-    col.push(accumFrequency);
-    col.push(accumRelativeFrequency);
-
-    data.push(col);
-  });
-
-  data = data
+  Array.from(set)
     .sort((a, b) => {
-      if (a[0] > b[0]) return 1;
-      if (a[0] == b[0]) return 0;
-      if (a[0] < b[0]) return -1;
+      if (a > b) return 1;
+      if (a == b) return 0;
+      if (a < b) return -1;
     })
-    .map((col) =>
-      col.map((num) => String(roundedNumber(num, 2)).replace('.', ','))
-    );
+    .forEach((value) => {
+      const col = [];
+
+      const frequency = getFrequency(arr, value);
+      const relativeFrequency = getRelativeFrequency(arr, frequency);
+
+      accumFrequency += frequency;
+      accumRelativeFrequency += relativeFrequency;
+
+      col.push(value);
+      col.push(frequency);
+      col.push(relativeFrequency);
+      col.push(accumFrequency);
+      col.push(accumRelativeFrequency);
+
+      data.push(col);
+    });
+
+  data = data.map((col) =>
+    col.map((num) => String(roundedNumber(num, 2)).replace('.', ','))
+  );
 
   return {
     data,
