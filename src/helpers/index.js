@@ -9,7 +9,10 @@ const getRelativeFrequency = (arr, frequency) => (frequency / arr.length) * 100;
 const roundedNumber = (num, val) => Math.round(num * 10 ** val) / 10 ** val;
 
 const getData = (str) => {
-  const arr = str.split(' ').map((e) => Number(e));
+  const arr = str
+    .replace(/,/g, '.')
+    .split(' ')
+    .map((e) => Number(e));
 
   const set = new Set(arr);
 
